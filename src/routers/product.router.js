@@ -1,15 +1,10 @@
 const express = require('express');
+const productController = require('../controllers/productsControllers');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', productController.findAll);
 
-    res.status().json();
-});
-
-router.get('/:id', async (req, res) => {
-
-    res.status().json();
-})
+router.get('/:id', productController.findByid);
 
 module.exports = router;
