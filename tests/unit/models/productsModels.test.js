@@ -10,7 +10,7 @@ const { expect, use } = chai;
 
 use(chaiHttp);
 
-describe('Testandos os endpoints de product', ()=> {
+describe('Testandos os models de product', ()=> {
   it('testando a listagem de todos os produtos', async ()=> {
     sinon.stub(connection, 'execute').resolves([mockProducts]);
     const response = await productModel.findAll();
