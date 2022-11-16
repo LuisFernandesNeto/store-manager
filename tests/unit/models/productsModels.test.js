@@ -11,6 +11,7 @@ const { expect, use } = chai;
 use(chaiHttp);
 
 describe('Testandos os models de product', ()=> {
+  afterEach(sinon.restore);
   it('testando a listagem de todos os produtos', async ()=> {
     sinon.stub(connection, 'execute').resolves([mockProducts]);
     const response = await productModel.findAll();

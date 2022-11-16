@@ -5,6 +5,7 @@ const { productModel } = index;
 
 const findAll = async () => {
   const result = await productModel.findAll();
+  console.log(result);
   return result;
 };
 
