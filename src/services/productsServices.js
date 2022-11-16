@@ -1,5 +1,5 @@
 const index = require('../models');
-const schema = require('./validations/validationsInputValues')
+const schema = require('./validations/validationsInputValues');
 
 const { productModel } = index;
 
@@ -16,12 +16,12 @@ const findById = async (productId) => {
 
 const insertProduct = async (name) => {
   const validateResult = schema.validatePostProductSchema(
-    {name},
+    { name },
   );
 
   if (validateResult.type) return validateResult;
 
-  const product = await productModel.insertProduct({name});
+  const product = await productModel.insertProduct({ name });
   const result = await productModel.findById(product);
   return { type: null, message: result };
 };
