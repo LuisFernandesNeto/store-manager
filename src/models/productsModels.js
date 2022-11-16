@@ -13,9 +13,9 @@ const findById = async (id) => {
   return camelize(product);
 };
 
-const insertProduct = async (id) => {
-  const [[product]] = await connection.execute('SELECT * FROM products WHERE id = ?', [id]);
-  return camelize(product);
+const insertProduct = async ({name}) => {
+  const [{insertId}] = await connection.execute('INSERT INTO StoreManager.products (name) VALUE (?)', [name]);
+  return insertId;
 }
 
 module.exports = {

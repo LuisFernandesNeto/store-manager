@@ -18,6 +18,17 @@ describe('Testandos os services de product', function () {
 
     const response = await productService.findAll();
     expect(response).to.deep.equal(products);
-    
-  })
+  });
+  it('testando a listagem de todos os produtos', async function () {
+    sinon.stub(productModel, 'findById').resolves(products[0]);
+
+    const response = await productService.findById(1);
+    expect(response.message).to.be.deep.equal(products[0]);
+  });
+  it('testando a listagem de todos os produtos', async function () {
+    sinon.stub(productModel, 'findById').resolves();
+
+    const response = await productService.findById(10);
+    expect(response.message).to.be.deep.equal('Product not found');
+  });
 });

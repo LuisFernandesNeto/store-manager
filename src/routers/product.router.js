@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', productController.findAll);
 
-router.get('/:id', productController.findByid);
+router.get('/:id', productController.findById);
 
 router.post('/', productController.insertProduct);
 

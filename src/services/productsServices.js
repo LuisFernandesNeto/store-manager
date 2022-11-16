@@ -5,7 +5,6 @@ const { productModel } = index;
 
 const findAll = async () => {
   const result = await productModel.findAll();
-  console.log(result);
   return result;
 };
 
@@ -15,18 +14,17 @@ const findById = async (productId) => {
   return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
-const insertProduct = async (productId, productName) => {
+const insertProduct = async (name) => {
   const validateResult = schema.validatePostProductSchema(
-    productId,
-    productName,
+    {name},
   );
 
   if (validateResult.type) return validateResult;
 
-  const product = await productModel.insertProduct(productId);
-  return product;
-
-}
+  const product = await productModel.insertProduct({name});
+  const result = await productModel.findById(product);
+  return { type: null, message: result };
+};
 
 module.exports = {
     findAll,

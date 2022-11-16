@@ -5,7 +5,7 @@ const findAll = async (_req, res) => {
     return res.status(200).json(result);
 };
 
-const findByid = async (req, res) => {
+const findById = async (req, res) => {
     const { id } = req.params;
     const { type, message } = await productServices.findById(id);
     if (type) {
@@ -15,17 +15,16 @@ const findByid = async (req, res) => {
 };
 
 const insertProduct = async (req, res) => {
-  const  { id } = req.params;
   const { name } = req.body;
-  const { type, message } = await productServices.insertProduct(id, name);
+  const { type, message } = await productServices.insertProduct(name);
     if (type) {
       return res.status(404).json({ message });
     }
-      return res.status(200).json(message);
+      return res.status(201).json(message);
 };
 
 module.exports = {
   findAll,
-  findByid,
+  findById,
   insertProduct,
 };

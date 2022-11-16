@@ -17,5 +17,11 @@ describe('Testandos os models de product', ()=> {
     const response = await productModel.findAll();
 
     expect(response).to.deep.equal(mockProducts);
-  })
+  });
+  it('testando id dos produtos', async ()=> {
+    sinon.stub(connection, 'execute').resolves([[mockProducts[0]]]);
+    const response = await productModel.findById(1);
+
+    expect(response).to.be.deep.equal(mockProducts[0]);
+  });
 });
