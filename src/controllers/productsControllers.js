@@ -14,9 +14,9 @@ const findById = async (req, res) => {
       return res.status(200).json(message);
 };
 
-const insertProduct = async (req, res) => {
+const insert = async (req, res) => {
   const { name } = req.body;
-  const { type, message } = await productServices.insertProduct(name);
+  const { type, message } = await productServices.insert(name);
     if (type === 'INVALID_VALUE') {
       return res.status(400).json({ message });
     }
@@ -29,5 +29,5 @@ const insertProduct = async (req, res) => {
 module.exports = {
   findAll,
   findById,
-  insertProduct,
+  insert,
 };

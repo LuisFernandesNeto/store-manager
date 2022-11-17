@@ -12,7 +12,8 @@ use(chaiHttp);
 
 describe('Testandos os models de product', ()=> {
   afterEach(sinon.restore);
-  it('testando a listagem de todos os produtos', async ()=> {
+
+  it('testando a listagem de todos os produtos', async () => {
     sinon.stub(connection, 'execute').resolves([mockProducts]);
     const response = await productModel.findAll();
 
@@ -23,5 +24,24 @@ describe('Testandos os models de product', ()=> {
     const response = await productModel.findById(1);
 
     expect(response).to.be.deep.equal(mockProducts[0]);
+  });
+  describe('cadastro de um novo produto', async () => {
+    before(async () => {
+      const execute = { insertId: 1 };
+
+      sinon.stub(connection, 'execute').resolves([execute]);
+    });
+
+    const expected = 1;
+
+    const payload = {
+      name: 'Xablau Insano',
+    };
+
+    it('com sucesso', async () => {
+      const response = await productModel.insert(payload.name);
+  
+      expect(response).to.equal(expected);
+    });
   });
 });

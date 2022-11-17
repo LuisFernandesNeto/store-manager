@@ -31,4 +31,34 @@ describe('Testandos os services de product', function () {
     const response = await productService.findById(10);
     expect(response.message).to.be.deep.equal('Product not found');
   });
+  describe('testando cadastro de um novo produto', async () => {
+    beforeEach(async () => {
+      sinon.stub(productModel, 'insert').resolves(product);
+    });
+
+    afterEach(sinon.restore);
+
+    const product = {
+      id: 1,
+      name: 'Trombeta Flamejante',
+    };
+
+    const invalidValue = true;
+    const invalidName = 'F';
+    const validName = 'Trombeta Flamejante';
+
+    it('com erros', async () => {
+      const response = await productService.insert(invalidValue);
+
+      expect(response.type).to.equal('INVALID_NAME');
+      expect(response.message).to.equal('"name" length must be at least 5 characters long');
+
+    });
+    it('com sucesso', async () => {
+      const response = await productService.insert(validName);
+
+      expect(response.type).to.equal(null);
+      expect(response.message).to.equal(product);
+    });
+  });
 });
