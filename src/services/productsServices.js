@@ -14,7 +14,7 @@ const findById = async (productId) => {
   return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
-const insert= async (item) => {
+const insert = async (item) => {
   const validateResult = schema.validatePostProductSchema(
     { name: item },
   );
