@@ -1,6 +1,7 @@
+const salesModels = require('../../models/salesModels');
 const schema = require('./schema');
 
-const { addProductSchema } = schema;
+const { addProductSchema, addSalesSchema } = schema;
 
 const validatePostProductSchema = (productName) => {
     const { error } = addProductSchema
@@ -17,6 +18,31 @@ const validatePostProductSchema = (productName) => {
     return { type: null, message: '' };
 };
 
+const validateQuantity = (quantity) => {
+    const { error } = addSalesSchema
+    .validate(quantity);
+    if (error) {
+        return { type: 'INVALID_QUANTITY',
+         message: '"quantity" must be greater than or equal to 1' };
+    }
+    return { type: null, message: '' };
+};
+
+const validateId = async (id) => {
+    const { error } = schema.idSchema
+    .validate(id);
+    if (error) {
+        return { type: 'INVALID_PRODUCT_ID', message: 'Product not found' };
+    }
+
+    const searchId = await salesModels.findById(id);
+    if (searchId) return { type: null, message: '' };
+
+    return { type: 'ERROR_PRODUCT_ID', message: 'Product not found' };
+};
+
 module.exports = {
     validatePostProductSchema,
+    validateQuantity,
+    validateId,
 };
