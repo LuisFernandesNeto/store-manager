@@ -14,14 +14,14 @@ const findById = async (productId) => {
   return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
-const insert= async (name) => {
+const insert= async (item) => {
   const validateResult = schema.validatePostProductSchema(
-    { name },
+    { name: item },
   );
 
   if (validateResult.type) return validateResult;
 
-  const product = await productModel.insert({ name });
+  const product = await productModel.insert({ name: item });
   const result = await productModel.findById(product);
   return { type: null, message: result };
 };

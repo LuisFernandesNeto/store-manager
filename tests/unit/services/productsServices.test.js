@@ -32,29 +32,38 @@ describe('Testandos os services de product', function () {
     expect(response.message).to.be.deep.equal('Product not found');
   });
   describe('testando cadastro de um novo produto', async () => {
-    beforeEach(async () => {
-      sinon.stub(productModel, 'insert').resolves(product);
-    });
-
-    afterEach(sinon.restore);
-
     const product = {
       id: 1,
       name: 'Trombeta Flamejante',
     };
 
-    const invalidValue = true;
+    const invalidValue = undefined;
     const invalidName = 'F';
     const validName = 'Trombeta Flamejante';
 
-    it('com erros', async () => {
-      const response = await productService.insert(invalidValue);
+    /* beforeEach(() => {
+      sinon.stub(productModel, 'insert').resolves(product);
+    });
+ */
+    afterEach(sinon.restore);
+
+    it('com erro de length', async () => {
+      const response = await productService.insert(invalidName);
 
       expect(response.type).to.equal('INVALID_NAME');
       expect(response.message).to.equal('"name" length must be at least 5 characters long');
 
     });
+    it('com erro retorna undefined', async () => {
+      const response = await productService.insert(invalidValue);
+
+      expect(response.type).to.equal('INVALID_VALUE');
+      expect(response.message).to.equal('"name" is required');
+
+    });
     it('com sucesso', async () => {
+      sinon.stub(productModel, 'insert').resolves(1);
+      sinon.stub(productModel, 'findById').resolves(product);
       const response = await productService.insert(validName);
 
       expect(response.type).to.equal(null);
