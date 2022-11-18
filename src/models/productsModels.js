@@ -19,8 +19,18 @@ const insert = async ({ name }) => {
   return insertId;
 };
 
+const update = async (name, id) => {
+  const product = await connection.execute(`
+  UPDATE StoreManager.products
+  SET name = ?
+  WHERE id = ?
+  `, [name, id]);
+  return camelize(product);
+};
+
 module.exports = {
     findAll,
     findById,
     insert,
+    update,
 };

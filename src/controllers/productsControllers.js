@@ -26,8 +26,23 @@ const insert = async (req, res) => {
       return res.status(201).json(message);
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const { type, message } = await productServices.update(name, id);
+  console.log(type);
+  if (type === 'INVALID_NAME') {
+    return res.status(422).json({ message });
+  }
+  if (type === 'ERROR_PRODUCT_ID') {
+    return res.status(404).json({ message });
+  }
+    return res.status(200).json(message);
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
+  update,
 };
