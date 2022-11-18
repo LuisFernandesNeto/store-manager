@@ -27,7 +27,7 @@ const insert = async (item) => {
 };
 
 const update = async (name, id) => {
-  const validateResult = schema.validatePostProductSchema({name});
+  const validateResult = schema.validatePostProductSchema({ name });
 
   if (validateResult.type) return validateResult;
 
