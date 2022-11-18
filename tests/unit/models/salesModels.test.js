@@ -13,23 +13,14 @@ chai.use(sinonChai);
 describe('testando os models de sales', async () => {
     afterEach(sinon.restore);
 
-    const soldProduct = [
-            {
-              "productId": 1,
-              "quantity": 1
-            },
-            {
-              "productId": 2,
-              "quantity": 5
-            }
-          ];
+    const execute = { insertId: 1 };
 
-    const saleId = 1;
+    const expected = 1;
 
     it('testando o cadastro da venda', async () => {
-        sinon.stub(connection, 'execute').resolves(mockSale);
-        const response = await salesModel.insert([soldProduct], saleId);
+        sinon.stub(connection, 'execute').resolves([execute]);
+        const response = await salesModel.insert(mockSale);
 
-        expect(response).to.deep.equal(mockSale);
+        expect(response).to.equal(expected);
     });
 });

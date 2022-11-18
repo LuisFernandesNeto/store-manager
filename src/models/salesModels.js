@@ -1,4 +1,5 @@
 const snakeize = require('snakeize');
+const camelize = require('camelize');
 const connection = require('./connection');
 
 const findById = async (id) => {
@@ -31,8 +32,43 @@ const findById = async (id) => {
     return insertId;
   };
 
+  const findAll = async () => {
+    const [response] = await connection
+    .execute(`
+  SELECT 
+    sp.sale_id, 
+    s.date, sp.product_id, 
+    sp.quantity 
+  FROM 
+    sales s 
+  INNER JOIN 
+    sales_products sp 
+  ON 
+    s.id = sp.sale_id`);
+    return camelize(response);
+  };
+
+  const findSaleById = async (id) => {
+    const [sale] = await connection
+    .execute(`
+  SELECT
+    s.date,
+    sp.product_id,
+    sp.quantity
+  FROM
+    sales s
+    INNER JOIN sales_products sp ON s.id = sp.sale_id
+  WHERE
+    id = ?
+  `,
+   [id]);
+    return camelize(sale);
+  };
+
 module.exports = {
     findById,
     insert,
     insertSale,
+    findAll,
+    findSaleById,
 };

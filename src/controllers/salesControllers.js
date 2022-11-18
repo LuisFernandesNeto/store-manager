@@ -10,6 +10,22 @@ const insert = async (req, res) => {
     return res.status(201).json(message);
 };
 
+const findAll = async (_req, res) => {
+    const response = await salesServices.findAll();
+    return res.status(200).json(response);
+};
+
+const findById = async (req, res) => {
+    const { id } = req.params;
+    const { type, message } = await salesServices.findById(id);
+    if (type) {
+        return res.status(404).json({ message });
+    }
+    return res.status(200).json(message);
+};
+
 module.exports = {
     insert,
+    findAll,
+    findById,
 };
