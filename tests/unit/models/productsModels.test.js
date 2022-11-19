@@ -44,4 +44,42 @@ describe('Testandos os models de product', ()=> {
       expect(response).to.equal(expected);
     });
   });
+  describe('alterar um produto', async () => {
+    before(async () => {
+      const execute = 1;
+
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    const expected = 1
+
+    const payload = {
+      name: 'Xablau Insano',
+    };
+
+    it('com sucesso', async () => {
+      const response = await productModel.update(payload.name);
+
+      expect(response).to.equal(expected);
+    });
+  });
+  describe('remover um produto', async () => {
+    before(async () => {
+      const execute = 1;
+
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    const payload = {
+      name: 'Xablau Insano',
+    };
+
+    const expected = 1;
+
+    it('com sucesso', async () => {
+      const response = await productModel.remove(payload.name);
+
+      expect(response).to.equal(expected);
+    });
+  });
 });

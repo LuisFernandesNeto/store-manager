@@ -30,6 +30,7 @@ const update = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
   const { type, message } = await productServices.update(name, id);
+  console.log(type);
   if (type === 'INVALID_NAME') {
     return res.status(422).json({ message });
   }

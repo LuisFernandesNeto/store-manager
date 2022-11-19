@@ -132,4 +132,11 @@ describe('Testandos os controllers de product', ()=> {
       });
     });
   });
+  describe('testando a atualização de um produto', async () =>{
+   
+    
+    /* it('testando o erro 422', async () => {
+
+    }); */
+  });
 });
