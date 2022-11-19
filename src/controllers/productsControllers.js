@@ -46,7 +46,7 @@ const remove = async (req, res) => {
     return res.status(404).json({ message });
   }
   return res.status(204).json(message);
-}
+};
 
 module.exports = {
   findAll,
