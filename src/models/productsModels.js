@@ -28,9 +28,15 @@ const update = async (name, id) => {
   return camelize(product);
 };
 
+const remove = async (id) => {
+  const product = await connection.execute('DELETE FROM products WHERE id = ?', [id]);
+  return camelize(product);
+}
+
 module.exports = {
     findAll,
     findById,
     insert,
     update,
+    remove,
 };
