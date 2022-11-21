@@ -102,4 +102,40 @@ describe('Testandos os services de product', function () {
       expect(response.message).to.deep.equal(product);
     });
   });
+  describe('testando a remoção de um produto', async () => {
+    const product = {
+      id: 2,
+      name: 'Trombeta Flamejante',
+    };
+
+    const invalidValue = undefined;
+    const invalidName = 'F';
+    const validName = 'Trombeta Flamejante';
+    const validId = 2;
+
+    afterEach(sinon.restore);
+
+    it('com erro de length', async () => {
+      const response = await productService.update(invalidName);
+
+      expect(response.type).to.equal('INVALID_NAME');
+      expect(response.message).to.equal('"name" length must be at least 5 characters long');
+
+    });
+    it('com erro retorna undefined', async () => {
+      const response = await productService.update(invalidValue);
+
+      expect(response.type).to.equal('INVALID_VALUE');
+      expect(response.message).to.equal('"name" is required');
+
+    });
+    it('com sucesso', async () => {
+      sinon.stub(productModel, 'update').resolves(1);
+      sinon.stub(productModel, 'findById').resolves(1);
+      const response = await productService.update(validName, validId);
+
+      expect(response.type).to.equal(null);
+      expect(response.message).to.deep.equal(product);
+    });
+  });
 });

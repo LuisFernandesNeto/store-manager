@@ -37,7 +37,6 @@ const update = async (name, id) => {
 
   const product = await productModel.update(name, id);
   if (product) return { type: null, message: { id, name } };
-  return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
 const remove = async (id) => {
@@ -47,7 +46,6 @@ const remove = async (id) => {
 
   const product = await productModel.remove(id);
   if (product) return { type: null, message: '' };
-  return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
  
 module.exports = {
