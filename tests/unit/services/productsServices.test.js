@@ -93,13 +93,13 @@ describe('Testandos os services de product', function () {
       expect(response.message).to.equal('"name" is required');
 
     });
-    /* it('com sucesso', async () => {
+    it('com sucesso', async () => {
       sinon.stub(productModel, 'update').resolves(1);
       sinon.stub(productModel, 'findById').resolves(1);
       const response = await productService.update(validName, validId);
 
       expect(response.type).to.equal(null);
-      expect(response.message).to.equal(product);
-    }); */
+      expect(response.message).to.deep.equal(product);
+    });
   });
 });
