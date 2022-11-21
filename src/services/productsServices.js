@@ -45,6 +45,7 @@ const remove = async (id) => {
   if (validateId.type) return validateId;
 
   const product = await productModel.remove(id);
+  console.log(product);
   if (product) return { type: null, message: '' };
 };
  
